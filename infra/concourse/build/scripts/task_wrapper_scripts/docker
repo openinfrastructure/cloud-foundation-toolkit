@@ -1,0 +1,3 @@
+#!/bin/bash
+
+source /cft/home/helper_functions/task_helper_functions.sh && docker
