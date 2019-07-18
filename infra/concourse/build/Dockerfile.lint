@@ -48,4 +48,10 @@ RUN wget "https://github.com/DeviaVir/terraform-provider-gsuite/releases/downloa
     install -m 0755 -d ~/.terraform.d/plugins/ && \
     mv terraform-provider-gsuite_v${PROVIDER_GSUITE_VERSION} ~/.terraform.d/plugins/
 
+# Provide helper functions with wrapper scripts for module check compatibility
 ADD ./build/scripts/task_helper_functions.sh /cft/home/helper_functions/
+ADD ./build/scripts/task_wrapper_scripts/* /cft/home/task_wrapper_scripts/
+RUN chmod +x /cft/home/task_wrapper_scripts/*
+
+# Ensure wrapper scripts are available at $PATH
+ENV PATH="${PATH}:/cft/home/task_wrapper_scripts"

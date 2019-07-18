@@ -96,7 +96,7 @@ function check_terraform() {
     | grep -v 'test/fixtures/shared' \
     | compat_xargs -n1 dirname \
     | sort -u \
-    | compat_xargs -t -n1 test/terraform_validate
+    | compat_xargs -t -n1 terraform_validate
 }
 
 # This function runs 'go fmt' and 'go vet' on every file
