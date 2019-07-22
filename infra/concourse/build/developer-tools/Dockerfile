@@ -6,8 +6,8 @@ ARG TERRAFORM_VERSION
 ENV TERRAFORM_VERSION ${TERRAFORM_VERSION}
 
 # Required to download and install the Terraform gsuite provider
-ARG PROVIDER_GSUITE_VERSION
-ENV PROVIDER_GSUITE_VERSION ${PROVIDER_GSUITE_VERSION}
+ARG GSUITE_PROVIDER_VERSION
+ENV GSUITE_PROVIDER_VERSION ${GSUITE_PROVIDER_VERSION}
 
 # Required to download and install Google Cloud SDK
 # Google Cloud SDK is located at /usr/local/google-cloud-sdk
@@ -29,6 +29,9 @@ RUN /build/install_dependencies.sh
 
 ADD ./build/install_cloud_sdk.sh /build/
 RUN /build/install_cloud_sdk.sh ${CLOUD_SDK_VERSION}
+
+ADD ./build/install_gsuite_terraform_provider.sh /build/
+RUN /build/install_gsuite_terraform_provider.sh ${GSUITE_PROVIDER_VERSION}
 
 # Cleanup intermediate build artifacts
 RUN rm -rf /build

@@ -14,7 +14,7 @@ REGISTRY_URL := gcr.io/cloud-foundation-cicd
 build-image-developer-tools:
 	docker build \
 		--build-arg CLOUD_SDK_VERSION=${CLOUD_SDK_VERSION} \
-		--build-arg PROVIDER_GSUITE_VERSION=${PROVIDER_GSUITE_VERSION} \
+		--build-arg GSUITE_PROVIDER_VERSION=${GSUITE_PROVIDER_VERSION} \
 		--build-arg TERRAFORM_VERSION=${TERRAFORM_VERSION} \
 		--build-arg RUBY_VERSION=${RUBY_VERSION} \
 		-t ${DOCKER_IMAGE_DEVELOPER_TOOLS}:${DOCKER_TAG_VERSION_DEVELOPER_TOOLS} .
