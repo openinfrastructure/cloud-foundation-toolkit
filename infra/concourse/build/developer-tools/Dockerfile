@@ -5,6 +5,10 @@ FROM ruby:$RUBY_VERSION-alpine
 ARG TERRAFORM_VERSION
 ENV TERRAFORM_VERSION ${TERRAFORM_VERSION}
 
+# Required to download and install terraform-docs
+ARG TERRAFORM_DOCS_VERSION
+ENV TERRAFORM_DOCS_VERSION ${TERRAFORM_DOCS_VERSION}
+
 # Required to download and install the Terraform gsuite provider
 ARG GSUITE_PROVIDER_VERSION
 ENV GSUITE_PROVIDER_VERSION ${GSUITE_PROVIDER_VERSION}
@@ -41,6 +45,9 @@ RUN /build/install_shellcheck.sh
 
 ADD ./build/install_hadolint.sh /build/
 RUN /build/install_hadolint.sh
+
+ADD ./build/install_terraform_docs.sh /build/
+RUN /build/install_terraform_docs.sh ${TERRAFORM_DOCS_VERSION}
 
 # Cleanup intermediate build artifacts
 RUN rm -rf /build
