@@ -20,11 +20,15 @@ ENV CLOUD_SDK_VERSION ${CLOUD_SDK_VERSION}
 ENV WORKSPACE="/workspace"
 ENV PATH /usr/local/google-cloud-sdk/bin:$PATH
 
-# Copy the contents of build to /build to access files necessary during the build step
-ADD ./build /build
-
 # bash is preferred over /bin/sh
 RUN apk add --no-cache bash
 
 # All package-level dependencies are handled by install_dependencies.sh
+ADD ./build/install_dependencies.sh /build/
 RUN /build/install_dependencies.sh
+
+ADD ./build/install_cloud_sdk.sh /build/
+RUN /build/install_cloud_sdk.sh ${CLOUD_SDK_VERSION}
+
+# Cleanup intermediate build artifacts
+RUN rm -rf /build
