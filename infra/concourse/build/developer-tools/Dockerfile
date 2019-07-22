@@ -36,5 +36,8 @@ RUN /build/install_gsuite_terraform_provider.sh ${GSUITE_PROVIDER_VERSION}
 ADD ./build/install_terraform.sh /build/
 RUN /build/install_terraform.sh ${TERRAFORM_VERSION}
 
+ADD ./build/install_shellcheck.sh /build/
+RUN /build/install_shellcheck.sh
+
 # Cleanup intermediate build artifacts
 RUN rm -rf /build
