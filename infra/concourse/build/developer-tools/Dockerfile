@@ -39,5 +39,8 @@ RUN /build/install_terraform.sh ${TERRAFORM_VERSION}
 ADD ./build/install_shellcheck.sh /build/
 RUN /build/install_shellcheck.sh
 
+ADD ./build/install_hadolint.sh /build/
+RUN /build/install_hadolint.sh
+
 # Cleanup intermediate build artifacts
 RUN rm -rf /build
