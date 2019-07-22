@@ -33,5 +33,8 @@ RUN /build/install_cloud_sdk.sh ${CLOUD_SDK_VERSION}
 ADD ./build/install_gsuite_terraform_provider.sh /build/
 RUN /build/install_gsuite_terraform_provider.sh ${GSUITE_PROVIDER_VERSION}
 
+ADD ./build/install_terraform.sh /build/
+RUN /build/install_terraform.sh ${TERRAFORM_VERSION}
+
 # Cleanup intermediate build artifacts
 RUN rm -rf /build
