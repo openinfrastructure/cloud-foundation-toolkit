@@ -1,0 +1,26 @@
+SHELL := /usr/bin/env bash # Make will use bash instead of sh
+
+TERRAFORM_VERSION := 0.12.5
+CLOUD_SDK_VERSION := 255.0.0
+GSUITE_PROVIDER_VERSION := 0.1.22
+RUBY_VERSION := 2.6.3
+
+DOCKER_TAG_VERSION_DEVELOPER_TOOLS := 0.0.1
+DOCKER_IMAGE_DEVELOPER_TOOLS := cft/developer-tools
+REGISTRY_URL := gcr.io/cloud-foundation-cicd
+
+
+.PHONY: build-image-developer-tools
+build-image-developer-tools:
+	docker build \
+		--build-arg CLOUD_SDK_VERSION=${CLOUD_SDK_VERSION} \
+		--build-arg PROVIDER_GSUITE_VERSION=${PROVIDER_GSUITE_VERSION} \
+		--build-arg TERRAFORM_VERSION=${TERRAFORM_VERSION} \
+		--build-arg RUBY_VERSION=${RUBY_VERSION} \
+		-t ${DOCKER_IMAGE_DEVELOPER_TOOLS}:${DOCKER_TAG_VERSION_DEVELOPER_TOOLS} .
+
+.PHONY: release-image-developer-tools
+release-image-developer-tools:
+	docker tag ${DOCKER_IMAGE_DEVELOPER_TOOLS}:${DOCKER_TAG_VERSION_DEVELOPER_TOOLS} \
+  ${REGISTRY_URL}/${DOCKER_IMAGE_DEVELOPER_TOOLS}:${DOCKER_TAG_VERSION_DEVELOPER_TOOLS}
+	docker push ${REGISTRY_URL}/${DOCKER_IMAGE_DEVELOPER_TOOLS}:${DOCKER_TAG_VERSION_DEVELOPER_TOOLS}
