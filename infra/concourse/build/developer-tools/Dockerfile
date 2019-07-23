@@ -63,5 +63,13 @@ ADD ./build/data/Gemfile.lock .
 ADD ./build/data/requirements.txt .
 RUN bundle install && pip3 install -r requirements.txt
 
+WORKDIR $WORKSPACE
+RUN terraform --version && \
+    terraform-docs --version && \
+    gcloud --version && \
+    ruby --version && \
+    bundle --version && \
+    kubectl version --client=true
+
 # Cleanup intermediate build artifacts
 RUN rm -rf /build
