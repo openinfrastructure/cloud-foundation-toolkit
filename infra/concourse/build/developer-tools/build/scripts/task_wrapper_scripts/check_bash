@@ -1,3 +1,4 @@
 #!/bin/bash
 
-source /cft/home/helper_functions/task_helper_functions.sh && check_bash
+
+source /usr/local/bin/task_helper_functions.sh && check_bash

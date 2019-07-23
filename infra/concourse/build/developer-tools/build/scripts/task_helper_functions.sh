@@ -172,4 +172,3 @@ function check_headers() {
   find_files . -type f -print0 \
     | compat_xargs -0 python test/verify_boilerplate.py
 }
-

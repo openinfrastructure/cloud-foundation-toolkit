@@ -49,5 +49,10 @@ RUN /build/install_hadolint.sh
 ADD ./build/install_terraform_docs.sh /build/
 RUN /build/install_terraform_docs.sh ${TERRAFORM_DOCS_VERSION}
 
+# Provide task helper functions with wrapper scripts for Terraform module lint
+# checks
+ADD ./build/scripts/task_helper_functions.sh /usr/local/bin/
+ADD ./build/scripts/task_wrapper_scripts/* /usr/local/bin/
+
 # Cleanup intermediate build artifacts
 RUN rm -rf /build

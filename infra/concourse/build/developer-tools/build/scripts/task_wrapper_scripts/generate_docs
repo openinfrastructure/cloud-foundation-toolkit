@@ -1,3 +1,3 @@
 #!/bin/bash
 
-source /cft/home/helper_functions/task_helper_functions.sh && generate_docs
+source /usr/local/bin/task_helper_functions.sh && generate_docs
