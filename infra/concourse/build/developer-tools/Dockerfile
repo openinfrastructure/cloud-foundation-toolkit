@@ -57,5 +57,11 @@ RUN /build/install_kubectl.sh
 ADD ./build/scripts/task_helper_functions.sh /usr/local/bin/
 ADD ./build/scripts/task_wrapper_scripts/* /usr/local/bin/
 
+WORKDIR /opt/kitchen
+ADD ./build/data/Gemfile .
+ADD ./build/data/Gemfile.lock .
+ADD ./build/data/requirements.txt .
+RUN bundle install && pip3 install -r requirements.txt
+
 # Cleanup intermediate build artifacts
 RUN rm -rf /build
