@@ -49,6 +49,9 @@ RUN /build/install_hadolint.sh
 ADD ./build/install_terraform_docs.sh /build/
 RUN /build/install_terraform_docs.sh ${TERRAFORM_DOCS_VERSION}
 
+ADD ./build/install_kubectl.sh /build/
+RUN /build/install_kubectl.sh
+
 # Provide task helper functions with wrapper scripts for Terraform module lint
 # checks
 ADD ./build/scripts/task_helper_functions.sh /usr/local/bin/
