@@ -52,6 +52,8 @@ RUN /build/install_terraform_docs.sh ${TERRAFORM_DOCS_VERSION}
 ADD ./build/install_kubectl.sh /build/
 RUN /build/install_kubectl.sh
 
+ADD ./build/scripts/setup_environment.sh /usr/local/bin/
+
 # Provide task helper functions with wrapper scripts for Terraform module lint
 # checks
 ADD ./build/scripts/task_helper_functions.sh /usr/local/bin/
