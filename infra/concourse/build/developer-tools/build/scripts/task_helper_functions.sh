@@ -66,7 +66,7 @@ function basefiles() {
 
 # This function runs the hadolint linter on
 # every file named 'Dockerfile'
-function docker() {
+function lint_docker() {
   echo "Running hadolint on Dockerfiles"
   find_files . -name "Dockerfile" -print0 \
     | compat_xargs -0 hadolint
