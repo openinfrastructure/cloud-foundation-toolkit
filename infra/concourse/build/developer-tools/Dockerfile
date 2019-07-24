@@ -53,6 +53,7 @@ ADD ./build/install_kubectl.sh /build/
 RUN /build/install_kubectl.sh
 
 ADD ./build/scripts/setup_environment.sh /usr/local/bin/
+ADD ./build/scripts/execute_with_credentials.sh /usr/local/bin/
 
 # Provide task helper functions with wrapper scripts for Terraform module lint
 # checks

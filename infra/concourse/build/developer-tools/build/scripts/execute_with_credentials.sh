@@ -13,6 +13,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Setup temp directory for credentials written to disk
+DELETE_AT_EXIT="$(mktemp -d)"
+export TMPDIR="${DELETE_AT_EXIT}"
+
 if [[ -z "${SERVICE_ACCOUNT_JSON}" ]]; then
   echo "Error: SERVICE_ACCOUNT_JSON must contain the JSON string (not the" >&2
   echo "file path) of the service account required to execute " >&2
@@ -21,27 +25,13 @@ if [[ -z "${SERVICE_ACCOUNT_JSON}" ]]; then
   exit 1
 fi
 
-setup_environment() {
-  local tmpfile
-  tmpfile="$(mktemp)"
-  echo "${SERVICE_ACCOUNT_JSON}" > "${tmpfile}"
+set -eu
 
-  # Terraform and most other tools respect GOOGLE_CREDENTIALS
-  # https://www.terraform.io/docs/providers/google/provider_reference.html#credentials-1
-  export GOOGLE_CREDENTIALS="${SERVICE_ACCOUNT_JSON}"
-
-  # gcloud variables
-  export CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE="${tmpfile}"
-
-  # InSpec respects GOOGLE_APPLICATION_CREDENTIALS
-  # https://github.com/inspec/inspec-gcp#create-credentials-file-via
-  export GOOGLE_APPLICATION_CREDENTIALS="${tmpfile}"
-
-  # Configure gsutil standalone
-  # https://cloud.google.com/storage/docs/gsutil/commands/config
-  gcloud config set pass_credentials_to_gsutil false
-  echo "[Credentials]" > ~/.boto
-  echo "gs_service_key_file = ${tmpfile}" >> ~/.boto
+# Always cleanup credentials upon exiting
+finish() {
+  [[ -d "${DELETE_AT_EXIT}" ]] && rm -rf "${DELETE_AT_EXIT}"
 }
+trap finish EXIT
 
-setup_environment
+source /usr/local/bin/setup_environment.sh
+"$@"
