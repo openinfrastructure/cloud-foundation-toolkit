@@ -17,14 +17,6 @@
 DELETE_AT_EXIT="$(mktemp -d)"
 export TMPDIR="${DELETE_AT_EXIT}"
 
-if [[ -z "${SERVICE_ACCOUNT_JSON}" ]]; then
-  echo "Error: SERVICE_ACCOUNT_JSON must contain the JSON string (not the" >&2
-  echo "file path) of the service account required to execute " >&2
-  echo "Terraform/gsutil/gcloud. For example: " >&2
-  echo "export SERVICE_ACCOUNT_JSON=\$(< /path/to/credentials.json)" >&2
-  exit 1
-fi
-
 set -eu
 
 # Always cleanup credentials upon exiting
