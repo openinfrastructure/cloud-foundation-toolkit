@@ -77,4 +77,4 @@ RUN terraform --version && \
 
 # Cleanup intermediate build artifacts
 RUN rm -rf /build
-ENTRYPOINT ["/bin/bash"]
+CMD ["/bin/bash"]
