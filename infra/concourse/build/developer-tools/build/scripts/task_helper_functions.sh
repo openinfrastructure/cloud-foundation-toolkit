@@ -140,10 +140,16 @@ function check_shell() {
   find_files . -name "*.sh" -print0 | compat_xargs -0 shellcheck -x
 }
 
-# This function makes sure that there is no trailing whitespace
-# in any files in the project.
-# There are some exclusions
 function check_trailing_whitespace() {
+  echo 'Warning: check_trailing_whitespace is deprecated' >&2
+  echo 'use check_whitespace instead' >&2
+  check_whitespace
+}
+
+# Check for common whitespace errors:
+# Trailing whitespace at the end of line
+# Missing newline at end of file
+check_whitespace() {
   local rc
   echo "Checking for trailing whitespace"
   find_files . -print \
@@ -153,6 +159,9 @@ function check_trailing_whitespace() {
   if [[ ${rc} -eq 0 ]]; then
     return 1
   fi
+  echo "Checking for missing newline at end of file"
+  find_files . -print \
+    | compat_xargs check_eof_newline
 }
 
 function generate_docs() {
