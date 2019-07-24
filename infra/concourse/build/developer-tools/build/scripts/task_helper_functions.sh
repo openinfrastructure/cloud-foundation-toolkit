@@ -150,8 +150,8 @@ function check_shell() {
 }
 
 function check_trailing_whitespace() {
-  echo 'Warning: check_trailing_whitespace is deprecated' >&2
-  echo 'use check_whitespace instead' >&2
+  echo -n 'Warning: check_trailing_whitespace is deprecated use ' >&2
+  echo 'check_whitespace' >&2
   check_whitespace
 }
 

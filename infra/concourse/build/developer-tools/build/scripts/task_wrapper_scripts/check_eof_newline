@@ -9,7 +9,7 @@ rval=0
 while (( "$#" )); do
   lc="$(tail -c 1 "$1")"
   if [[ -n "${lc}" ]]; then
-    echo "No newline at end of file ${1}" >&2
+    echo "Error: No newline at end of file ${1}" >&2
     ((rval++))
   fi
   shift
