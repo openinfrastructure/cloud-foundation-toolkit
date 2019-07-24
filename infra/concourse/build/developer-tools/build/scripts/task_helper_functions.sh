@@ -31,6 +31,15 @@ setup_trap_handler() {
   trap finish EXIT
 }
 
+# Integration testing requires different behavior for its trap handler (running
+# `kitchen destroy` along with cleaning up the environment). Because you can't
+# have more than one trap handler for a signal, this function sets up the trap
+# handler to call the finish_integration() function unique to integration tests.
+setup_trap_handler_integration() {
+  setup_trap_handler
+  trap finish_integration exit
+}
+
 # If DELETE_AT_EXIT is set (by setup_trap_handler), create a temporary file in
 # the auto-cleaned up directory while avoiding overwriting TMPDIR for other
 # processes.  Otherwise, create a temporary file or directory normally as per
@@ -254,6 +263,15 @@ run_integration_tests() {
   kitchen create
   kitchen converge
   kitchen verify
+}
+
+# Integration testing requires `kitchen destroy` to be called up before the
+# environment is cleaned up.
+finish_integration() {
+  local rv=$?
+  kitchen destroy
+  finish
+  exit "${rv}"
 }
 
 # Intended to allow a module to customize a particular check or behavior.  For

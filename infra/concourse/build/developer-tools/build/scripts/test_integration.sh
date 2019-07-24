@@ -14,19 +14,7 @@
 # limitations under the License.
 set -eu
 
-finish_integration() {
-  local rv=$?
-  kitchen destroy
-  finish
-  exit "${rv}"
-}
-
 source /usr/local/bin/task_helper_functions.sh
-
-# Override the trap handler from /usr/local/bin/task_helper_functions.sh to
-# call kitchen destroy and then call finish()
-setup_trap_handler
-trap finish_integration exit
-
+setup_trap_handler_integration
 init_credentials
 run_integration_tests
