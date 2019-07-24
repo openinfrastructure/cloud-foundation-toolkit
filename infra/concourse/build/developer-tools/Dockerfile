@@ -67,6 +67,10 @@ ADD ./build/scripts/task_wrapper_scripts/* /usr/local/bin/
 # Execute a command with SA credentials configured.
 ADD ./build/scripts/execute_with_credentials.sh /usr/local/bin/
 
+# Intended to help developers iterate quickly
+ADD ./build/home/bash_history /root/.bash_history
+ADD ./build/home/bashrc /root/.bashrc
+
 WORKDIR $WORKSPACE
 RUN terraform --version && \
     terraform-docs --version && \
