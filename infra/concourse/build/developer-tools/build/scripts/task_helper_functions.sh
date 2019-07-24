@@ -247,3 +247,10 @@ setup_environment() {
   echo 'Warning: setup_environment is deprecated.  Use init_credentials instead.' >&2
   init_credentials
 }
+
+# Intended to allow a module to customize a particular check or behavior.  For
+# example, the pubsub module runs "kitchen converge" twice instead of the
+# default one time.
+if [[ -e /workspace/test/task_helper_functions.sh ]]; then
+  source /workspace/test/task_helper_functions.sh
+fi
