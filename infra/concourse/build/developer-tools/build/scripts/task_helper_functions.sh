@@ -206,11 +206,13 @@ init_credentials() {
   if [[ -z "${SERVICE_ACCOUNT_JSON:-}" ]]; then
     echo "Error: SERVICE_ACCOUNT_JSON must contain the JSON string (not the" >&2
     echo "file path) of the service account credentials.  For example:" >&2
+    # shellcheck disable=SC2016
     echo 'export SERVICE_ACCOUNT_JSON=$(< ~/.credentials/my-sa-key.json)' >&2
     return 1
   fi
 
   local tmpfile
+  # shellcheck disable=SC2119
   tmpfile="$(maketemp)"
   echo "${SERVICE_ACCOUNT_JSON}" > "${tmpfile}"
 
