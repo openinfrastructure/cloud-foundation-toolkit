@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-if [[ -z "${SERVICE_ACCOUNT_JSON}" ]]; then
+if [[ -z "${SERVICE_ACCOUNT_JSON:-}" ]]; then
   echo "Error: SERVICE_ACCOUNT_JSON must contain the JSON string (not the" >&2
   echo "file path) of the service account required to execute " >&2
   echo "Terraform/gsutil/gcloud. For example: " >&2
