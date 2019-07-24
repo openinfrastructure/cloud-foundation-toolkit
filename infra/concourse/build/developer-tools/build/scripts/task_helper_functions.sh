@@ -248,6 +248,14 @@ setup_environment() {
   init_credentials
 }
 
+# This function is called by /usr/local/bin/test_integration.sh and can be
+# overridden on a per-module basis to implement additional steps.
+run_integration_tests() {
+  kitchen create
+  kitchen converge
+  kitchen verify
+}
+
 # Intended to allow a module to customize a particular check or behavior.  For
 # example, the pubsub module runs "kitchen converge" twice instead of the
 # default one time.

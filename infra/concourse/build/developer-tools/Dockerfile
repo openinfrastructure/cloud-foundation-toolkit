@@ -66,6 +66,8 @@ ADD ./build/scripts/task_helper_functions.sh /usr/local/bin/
 ADD ./build/scripts/task_wrapper_scripts/* /usr/local/bin/
 # Execute a command with SA credentials configured.
 ADD ./build/scripts/execute_with_credentials.sh /usr/local/bin/
+# Execute the module's integration tests and cleanup.
+ADD ./build/scripts/test_integration.sh /usr/local/bin/
 
 # Intended to help developers iterate quickly
 ADD ./build/home/bash_history /root/.bash_history
