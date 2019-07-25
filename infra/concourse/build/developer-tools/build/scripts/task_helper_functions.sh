@@ -206,7 +206,7 @@ function check_headers() {
   echo "Checking file headers"
   # Use the exclusion behavior of find_files
   find_files . -type f -print0 \
-    | compat_xargs -0 python test/verify_boilerplate.py
+    | compat_xargs -0 check_headers
 }
 
 

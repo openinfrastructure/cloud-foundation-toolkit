@@ -58,6 +58,10 @@ ADD ./build/data/Gemfile.lock .
 ADD ./build/data/requirements.txt .
 RUN bundle install && pip3 install -r requirements.txt
 
+COPY ./build/install_verify_boilerplate.sh /build/
+COPY ./build/verify_boilerplate/ /build/verify_boilerplate/
+RUN /build/install_verify_boilerplate.sh
+
 # NOTE: Most developers are expected to source this file when entering the
 # container, then run init_credentials
 ADD ./build/scripts/task_helper_functions.sh /usr/local/bin/

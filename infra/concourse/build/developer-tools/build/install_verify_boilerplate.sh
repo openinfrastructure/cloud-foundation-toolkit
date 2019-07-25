@@ -13,4 +13,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-python test/verify_boilerplate
+set -e
+set -u
+
+cd /build/verify_boilerplate
+
+install -o 0 -g 0 -m 0755 -d /usr/local/verify_boilerplate
+install -o 0 -g 0 -m 0755 verify_boilerplate.py /usr/local/verify_boilerplate/verify_boilerplate.py
+install -o 0 -g 0 -m 0644 boilerplate/*.txt -D -t /usr/local/verify_boilerplate/boilerplate/
