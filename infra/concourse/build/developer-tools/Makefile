@@ -26,3 +26,36 @@ release-image-developer-tools:
 	docker tag ${DOCKER_IMAGE_DEVELOPER_TOOLS}:${DOCKER_TAG_VERSION_DEVELOPER_TOOLS} \
   ${REGISTRY_URL}/${DOCKER_IMAGE_DEVELOPER_TOOLS}:${DOCKER_TAG_VERSION_DEVELOPER_TOOLS}
 	docker push ${REGISTRY_URL}/${DOCKER_IMAGE_DEVELOPER_TOOLS}:${DOCKER_TAG_VERSION_DEVELOPER_TOOLS}
+
+# The docker_run task is provided as an example and reference for other CFT
+# Terraform modules to use.  Each module should have an identical `make
+# docker_run` task in the module's repository.
+.PHONY: docker_run
+docker_run: ## Launch a shell within the Docker test environment
+	docker run --rm -it \
+		-e SERVICE_ACCOUNT_JSON \
+		-v $(CURDIR):/workspace \
+		cft/developer-tools:0.0.1 \
+		/bin/bash
+
+.PHONY: docker_test_lint
+docker_test_lint:
+	docker run --rm -it \
+		-v $(CURDIR):/workspace \
+		cft/developer-tools:0.0.1 \
+		make test_lint
+
+.PHONY: test_lint
+test_lint: check_shell check_headers check_python
+
+.PHONY: check_headers
+check_headers:
+	@source /usr/local/bin/task_helper_functions.sh && check_headers
+
+.PHONY: check_shell
+check_shell:
+	@source /usr/local/bin/task_helper_functions.sh && check_shell
+
+.PHONY: check_python
+check_python:
+	@source /usr/local/bin/task_helper_functions.sh && check_python
