@@ -1,1 +1,12 @@
 PS1='[\u@\h \W]\$ '
+
+if [[ -z "${CFT_DISABLE_INIT_CREDENTIALS:-}" ]]; then
+  echo 'Loading /usr/local/bin/task_helper_functions.sh from ~/.bashrc' >&2
+  echo 'Disable by setting CFT_DISABLE_INIT_CREDENTIALS to a non-empty value' >&2
+  # shellcheck disable=1091
+  source /usr/local/bin/task_helper_functions.sh
+  init_credentials
+else
+  echo -n 'Skipping init_credentials because CFT_DISABLE_INIT_CREDENTIALS ' >&2
+  echo 'has length' >&2
+fi
